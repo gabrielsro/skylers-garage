@@ -8,8 +8,8 @@ export default function Home() {
       <h1
         className={`font-bold text-3xl text-nord0 w-screen text-center px-1 ${lusitana.className}`}
       >
-        Welcome to Skyler's Garage. Here you'll find anything you want related
-        to Nissan Skylines
+        Welcome to Skyler&apos;s Garage. Here you&apos;ll find anything you want
+        related to Nissan Skylines
       </h1>
       <Image
         src="/skyline1.jpg"
