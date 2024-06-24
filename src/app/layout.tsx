@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { inter } from "@/ui/fonts";
 import Navbar from "@/ui/home/navbar";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Skyler's Garage",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <Navbar />
         {children}
+        <Analytics />
       </body>
     </html>
   );
