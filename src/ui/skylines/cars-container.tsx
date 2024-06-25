@@ -8,8 +8,8 @@ export default async function CarsContainer({
 }) {
   return (
     <div className="grid grid-cols-car-cards-mobile gap-2 pr-1 place-content-center">
-      {cars?.map((car) => {
-        return <CarCard car={car} />;
+      {cars?.map((car, i) => {
+        return <CarCard car={car} key={i} />;
       })}
     </div>
   );
