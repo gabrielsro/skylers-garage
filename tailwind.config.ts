@@ -16,6 +16,7 @@ const config: Config = {
       },
       gridTemplateColumns: {
         "side-nav": "auto minmax(0,1fr)",
+        "car-cards-mobile": "repeat(auto-fill,minmax(150px,175px))",
       },
     },
   },
