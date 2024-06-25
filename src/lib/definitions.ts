@@ -17,3 +17,5 @@ export type Car = {
   torque?: number;
   horsepower?: number;
 };
+
+export type Model = "R32" | "R33" | "R34";

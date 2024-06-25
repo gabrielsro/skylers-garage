@@ -16,10 +16,6 @@ export default async function CarCard({ car }: { car: Car }) {
         <p className="overflow-hidden overflow-ellipsis">{`${car.year} ${car.model} ${car.edition}`}</p>
         <p>{`${car.mileage} miles`}</p>
         <p>{formatCurrency(car.price)}</p>
-        <div className="flex flex-col justify-between">
-          <p className="overflow-hidden overflow-ellipsis">{car.seller}</p>
-          <p>{car.location}</p>
-        </div>
       </div>
     </div>
   );
