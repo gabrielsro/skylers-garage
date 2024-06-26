@@ -1,6 +1,65 @@
 import { db } from "@vercel/postgres";
 import cars from "../src/lib/placeholder-cars-data.js";
 import parts from "../src/lib/placeholder-parts-data.js";
+import users from "../src/lib/placeholder-users-data.js";
+
+async function seedUsers(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    const createTable = await client.sql`
+    CREATE TABLE IF NOT EXISTS users (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    cars UUID[],
+    comments UUID[],
+    posts UUID[],
+    questions UUID[],
+    answers UUID[],
+    rating NUMERIC(2,1),
+    reviews UUID[],
+    location varchar(100),
+    src VARCHAR(255),
+    description TEXT,
+    PASSWORD VARCHAR(255)
+    )
+    `;
+    console.log('Created "users" table');
+
+    const insertedUsers = await Promise.all(
+      users.map(async (user) => {
+        const {
+          name,
+          cars,
+          comments,
+          posts,
+          questions,
+          answers,
+          rating,
+          reviews,
+          location,
+          src,
+          description,
+          password,
+        } = user;
+
+        await client.sql`
+        INSERT INTO users (name, cars, comments, posts, questions, answers, rating, reviews, location, src, description, password)
+        VALUES (${name}, ${cars}, ${[]}, ${[]}, ${[]}, ${[]}, ${rating}, ${[]}, ${location}, ${src}, ${description}, ${password})
+        `;
+      })
+    );
+
+    console.log(`Seeded ${insertedUsers.length} users`);
+
+    return {
+      insertedUsers,
+      users: insertedUsers,
+    };
+  } catch (err) {
+    console.error("Error seeding users: ", err);
+    throw err;
+  }
+}
 
 async function seedCars(client) {
   try {
@@ -130,7 +189,8 @@ async function seedParts(client) {
 
 async function main() {
   const client = await db.connect();
-  await seedCars(client);
+  await seedUsers(client);
+  //   await seedCars(client);
   //   await seedParts(client);
   client.end();
 }

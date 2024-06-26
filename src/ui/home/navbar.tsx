@@ -18,12 +18,12 @@ export default function Navbar() {
         Home
       </Link>
       <Link
-        href="/services"
+        href="/community"
         className={clsx("hover:text-nord4", {
-          "text-nord-7": pathname === "/services",
+          "text-nord-7": pathname === "/community",
         })}
       >
-        Services
+        Community
       </Link>
       <Link
         href="/pricing"
@@ -39,15 +39,7 @@ export default function Navbar() {
           "text-nord7": pathname === "/spare-parts",
         })}
       >
-        Spare Parts
-      </Link>
-      <Link
-        href="/contact"
-        className={clsx("hover:text-nord4", {
-          "text-nord7": pathname === "/contact",
-        })}
-      >
-        Contact
+        Parts
       </Link>
       <Link
         href="/skylines"
@@ -56,6 +48,14 @@ export default function Navbar() {
         })}
       >
         Skylines
+      </Link>
+      <Link
+        href="/contact"
+        className={clsx("hover:text-nord4", {
+          "text-nord7": pathname === "/contact",
+        })}
+      >
+        Contact
       </Link>
     </nav>
   );
