@@ -18,4 +18,12 @@ export type Car = {
   horsepower?: number;
 };
 
+export type Recent = {
+  name: string;
+  location: string;
+  src: string;
+  created_at: string;
+  car_count: number;
+};
+
 export type Model = "R32" | "R33" | "R34";

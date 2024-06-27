@@ -17,7 +17,10 @@ const config: Config = {
       gridTemplateColumns: {
         "side-nav": "auto minmax(0,1fr)",
         "car-cards-mobile": "repeat(auto-fill,minmax(150px,175px))",
+        "recent-users-model-tempate": "58vw 1fr",
       },
+      minHeight: { half: "50vh", lg: "70vh" },
+      spacing: { "pic-sm": "50px" },
     },
   },
   plugins: [require("tailwind-nord")],
