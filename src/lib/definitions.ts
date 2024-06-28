@@ -26,4 +26,13 @@ export type Recent = {
   car_count: number;
 };
 
+export type User = {
+  name: string;
+  location: string;
+  src: string;
+  id: string;
+  cars?: [];
+  created_at?: [];
+};
+
 export type Model = "R32" | "R33" | "R34";

@@ -5,8 +5,8 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <div className="min-h-screen grid place-content-center bg-slate-500 px-1">
-      <div className="grid gap-2 grid-cols-recent-users-model-tempate bg-nord11 w-screen place-content-center">
+    <div className="min-h-screen grid place-content-center px-1 pt-8 bg-nord-5">
+      <div className="grid grid-cols-recent-users-model-tempate w-screen place-content-center overflow-hidden">
         <RecentUsers />
         <ByModel />
       </div>

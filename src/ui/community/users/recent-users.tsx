@@ -3,7 +3,8 @@ import RecentUsersFallback from "./recent-users-fallback";
 import { Suspense } from "react";
 export default function RecentUsers() {
   return (
-    <div className="bg-nord7 min-h-lg grid pr-1">
+    <div className=" min-h-lg px-1">
+      <p>New Users</p>
       <Suspense fallback={<RecentUsersFallback />}>
         <RecentUsersList />
       </Suspense>

@@ -2,6 +2,7 @@ import { sql } from "@vercel/postgres";
 import { Car } from "./definitions";
 import { Recent } from "./definitions";
 import { Model } from "./definitions";
+import { User } from "./definitions";
 
 export async function fetchCars(model?: Model): Promise<Car[] | undefined> {
   try {
@@ -22,10 +23,47 @@ export async function fetchCars(model?: Model): Promise<Car[] | undefined> {
 export async function fetchUserCount() {
   try {
     const count = await sql`SELECT COUNT(*) FROM users`;
-    return count.rows[0].count[0] ?? "0";
+    return count.rows[0].count ?? "0";
   } catch (error) {
     console.error("Database error: ", error);
     throw new Error("Failed to fetch user count");
+  }
+}
+
+export async function fetchUserCountModel(model: string) {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const count = await sql`SELECT COUNT(DISTINCT users.id)
+    FROM users
+    JOIN cars ON cars.id = ANY(users.cars)
+    WHERE cars.model = ${model}`;
+    return count;
+  } catch (error) {
+    console.error("Database error: ", error);
+    throw new Error("Failed to fetch user by model count");
+  }
+}
+
+export async function fetchUserListModel(model: string): Promise<User[]> {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const users =
+      await sql`SELECT users.name, users.src, users.location, users.id
+    FROM users
+    JOIN cars ON cars.id = ANY(users.cars)
+    WHERE cars.model = ${model}
+    GROUP BY users.id
+    LIMIT 5`;
+    const usersArray: User[] = users?.rows.map((row: any) => ({
+      name: row.name,
+      location: row.location,
+      src: row.src,
+      id: row.id,
+    }));
+    return usersArray;
+  } catch (error) {
+    console.error(`Database error: `, error);
+    throw new Error("Failed to fetch model users");
   }
 }
 
@@ -36,7 +74,7 @@ export async function fetchRecenUsers(): Promise<Recent[] | undefined> {
       await sql`SELECT name, location, src, created_at, array_length(cars, 1) AS car_count
     FROM users
     ORDER BY created_at DESC
-    LIMIT 10`;
+    LIMIT 4`;
 
     const recentUsers: Recent[] = recents?.rows.map((row: any) => ({
       name: row.name,

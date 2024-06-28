@@ -5,7 +5,7 @@ import UserPicFallback from "./user-pic-fallback";
 
 export default function RecentUserCard({ recent }: { recent: Recent }) {
   return (
-    <div className="whitespace-nowrap rounded-sm flex items-center gap-1 pl-1 py-1 pr-1 shadow-md w-full overflow-hidden">
+    <div className="whitespace-nowrap rounded-sm flex items-center gap-1 pl-1 py-1 pr-1 shadow-md w-full overflow-hidden bg-white">
       <div>
         <Suspense fallback={<UserPicFallback />}>
           <UserPic src={recent.src} />
