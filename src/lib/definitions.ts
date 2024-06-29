@@ -36,3 +36,12 @@ export type User = {
 };
 
 export type Model = "R32" | "R33" | "R34";
+
+export type UsersResult = {
+  id: string;
+  name: string;
+  src: string;
+  created_at: string;
+  rating: number;
+  location: string;
+};
