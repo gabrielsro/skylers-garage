@@ -1,4 +1,4 @@
-import { fetchFilteredUsers } from "@/lib/data";
+import { fetchFilteredUsers, fetchUserPages } from "@/lib/data";
 import SearchResultUserCard from "./search-result-user-card";
 
 export default async function SearchResults({

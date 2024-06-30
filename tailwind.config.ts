@@ -20,7 +20,12 @@ const config: Config = {
         "recent-users-model-tempate": "57vw 43vw",
       },
       minHeight: { half: "50vh", lg: "30vh" },
-      spacing: { "pic-sm": "50px", "pic-md": "120px", "pic-xs": "30px" },
+      spacing: {
+        "pic-sm": "50px",
+        "pic-inter": "60px",
+        "pic-md": "120px",
+        "pic-xs": "30px",
+      },
     },
   },
   plugins: [require("tailwind-nord")],

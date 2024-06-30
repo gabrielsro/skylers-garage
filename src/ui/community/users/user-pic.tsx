@@ -7,7 +7,11 @@ export default async function UserPic(src: any) {
   }
   return (
     <div className="bg-black grid w-pic-sm h-pic-sm place-content-center rounded-full overflow-hidden">
-      <img src={src} alt="User avatar" className="w-pic-sm max-h-pic-sm" />
+      <img
+        src={src}
+        alt="User avatar"
+        className="w-pic-inter min-h-pic-inter"
+      />
     </div>
   );
 }

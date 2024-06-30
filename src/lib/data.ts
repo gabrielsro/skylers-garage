@@ -5,7 +5,7 @@ import { Model } from "./definitions";
 import { User } from "./definitions";
 import { UsersResult } from "./definitions";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 
 export async function fetchUserPages(query: string) {
   try {
