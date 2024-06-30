@@ -1,29 +1,29 @@
 import { db } from "@vercel/postgres";
-import cars from "../src/lib/placeholder-cars-data.js";
+import cars from "../src/lib/evenmorecars.js";
 import parts from "../src/lib/placeholder-parts-data.js";
-import users from "../src/lib/placeholder-users-data.js";
+import users from "../src/lib/evenmoreusers.js";
 
 async function seedUsers(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    const createTable = await client.sql`
-    CREATE TABLE IF NOT EXISTS users (
-    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    cars UUID[],
-    comments UUID[],
-    posts UUID[],
-    questions UUID[],
-    answers UUID[],
-    rating NUMERIC(2,1),
-    reviews UUID[],
-    location varchar(100),
-    src VARCHAR(255),
-    description TEXT,
-    PASSWORD VARCHAR(255)
-    )
-    `;
-    console.log('Created "users" table');
+    // const createTable = await client.sql`
+    // CREATE TABLE IF NOT EXISTS users (
+    // id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    // name VARCHAR(50) NOT NULL,
+    // cars UUID[],
+    // comments UUID[],
+    // posts UUID[],
+    // questions UUID[],
+    // answers UUID[],
+    // rating NUMERIC(2,1),
+    // reviews UUID[],
+    // location varchar(100),
+    // src VARCHAR(255),
+    // description TEXT,
+    // PASSWORD VARCHAR(255)
+    // )
+    // `;
+    // console.log('Created "users" table');
 
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
@@ -44,7 +44,9 @@ async function seedUsers(client) {
 
         await client.sql`
         INSERT INTO users (name, cars, comments, posts, questions, answers, rating, reviews, location, src, description, password)
-        VALUES (${name}, ${cars}, ${[]}, ${[]}, ${[]}, ${[]}, ${rating}, ${[]}, ${location}, ${src}, ${description}, ${password})
+        VALUES (${name}, ${cars}, ${[]}, ${[]}, ${[]}, ${[]}, ${rating}, ${[]}, ${location}, ${src}, ${description}, ${
+          password || null
+        })
         `;
       })
     );
@@ -64,32 +66,32 @@ async function seedUsers(client) {
 async function seedCars(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    const createTable = await client.sql`
-    CREATE TABLE IF NOT EXISTS cars (
-    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    model VARCHAR(10) NOT NULL,
-    edition VARCHAR(50),
-    engine VARCHAR(100),
-    displacement INT,
-    engineVariation VARCHAR(100),
-    transmission VARCHAR(100),
-    weight INT,
-    topSpeed INT,
-    location VARCHAR(100),
-    seller VARCHAR(100),
-    mileage INT,
-    year INT,
-    color VARCHAR(50) NOT NULL,
-    acceleration NUMERIC(4,1),
-    torque INT,
-    horsepower INT,
-    price INT NOT NULL,
-    description TEXT,
-    src VARCHAR(300)
-    );
-    `;
+    // const createTable = await client.sql`
+    // CREATE TABLE IF NOT EXISTS cars (
+    // id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    // model VARCHAR(10) NOT NULL,
+    // edition VARCHAR(50),
+    // engine VARCHAR(100),
+    // displacement INT,
+    // engineVariation VARCHAR(100),
+    // transmission VARCHAR(100),
+    // weight INT,
+    // topSpeed INT,
+    // location VARCHAR(100),
+    // seller VARCHAR(100),
+    // mileage INT,
+    // year INT,
+    // color VARCHAR(50) NOT NULL,
+    // acceleration NUMERIC(4,1),
+    // torque INT,
+    // horsepower INT,
+    // price INT NOT NULL,
+    // description TEXT,
+    // src VARCHAR(300)
+    // );
+    // `;
 
-    console.log('Created "cars" table');
+    // console.log('Created "cars" table');
 
     const insertedCars = await Promise.all(
       cars.map(async (car) => {
@@ -135,7 +137,7 @@ async function seedCars(client) {
     console.log(`Seeded ${insertedCars.length} cars`);
 
     return {
-      createTable,
+      // createTable,
       cars: insertedCars,
     };
   } catch (err) {
@@ -147,19 +149,19 @@ async function seedCars(client) {
 async function seedParts(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    const createTable = await client.sql`
-    CREATE TABLE IF NOT EXISTS parts (
-    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    price INT NOT NULL,
-    description TEXT,
-    seller VARCHAR(100),
-    compatibleModels VARCHAR(10)[] NOT NULL,
-    category VARCHAR(50) NOT NULL CHECK (category in ('engine', 'steering', 'transmission', 'brakes'))
-    );
-    `;
+    // const createTable = await client.sql`
+    // CREATE TABLE IF NOT EXISTS parts (
+    // id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    // name VARCHAR(100) NOT NULL,
+    // price INT NOT NULL,
+    // description TEXT,
+    // seller VARCHAR(100),
+    // compatibleModels VARCHAR(10)[] NOT NULL,
+    // category VARCHAR(50) NOT NULL CHECK (category in ('engine', 'steering', 'transmission', 'brakes'))
+    // );
+    // `;
 
-    console.log('Created "parts" table');
+    // console.log('Created "parts" table');
 
     const insertedParts = await Promise.all(
       parts.map(async (part) => {
@@ -190,7 +192,7 @@ async function seedParts(client) {
 async function main() {
   const client = await db.connect();
   await seedUsers(client);
-  //   await seedCars(client);
+  // await seedCars(client);
   //   await seedParts(client);
   client.end();
 }

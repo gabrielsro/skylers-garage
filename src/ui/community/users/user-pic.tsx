@@ -2,7 +2,7 @@ import { fetchUnknownImage } from "@/lib/data";
 
 export default async function UserPic(src: any) {
   const regex = /^https:\/\/example\.com.*/;
-  if (!regex.test(src)) {
+  if (!regex.test(src) || !src) {
     src = await fetchUnknownImage();
   }
   return (

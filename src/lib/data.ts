@@ -5,6 +5,26 @@ import { Model } from "./definitions";
 import { User } from "./definitions";
 import { UsersResult } from "./definitions";
 
+const ITEMS_PER_PAGE = 6;
+
+export async function fetchUserPages(query: string) {
+  try {
+    const count = await sql`SELECT COUNT(*) 
+    FROM users
+    WHERE
+    users.name ILIKE ${`%${query}%`} OR
+    users.location ILIKE ${`%${query}%`}
+    `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+
+    return totalPages;
+  } catch (error) {
+    console.error("Database error: ", error);
+    throw new Error("Failed to fetch total number of users");
+  }
+}
+
 export async function fetchCars(
   model?: Model,
   searchParams?: { sort?: string; transmission?: string; color?: string }
@@ -504,7 +524,7 @@ export async function fetchRecenUsers(): Promise<Recent[] | undefined> {
       await sql`SELECT name, location, src, created_at, array_length(cars, 1) AS car_count
     FROM users
     ORDER BY created_at DESC
-    LIMIT 4`;
+    LIMIT 8`;
 
     const recentUsers: Recent[] = recents?.rows.map((row: any) => ({
       name: row.name,
@@ -539,7 +559,6 @@ export async function fetchUnknownImage(): Promise<string> {
 }
 
 export async function fetchFilteredUsers(query: string, currentPage: number) {
-  const ITEMS_PER_PAGE = 6;
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
     const users = await sql<UsersResult>`

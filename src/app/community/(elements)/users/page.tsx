@@ -19,6 +19,7 @@ export default function Page({
         <div className="pb-2 pt-2">
           <Search placeholder="Search users..." />
         </div>
+        <p>{JSON.stringify(searchParams)}</p>
         <div className="pt-2">
           <Suspense
             fallback={<GenericFallback size={20} key={query + currentPage} />}
