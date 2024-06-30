@@ -1,3 +1,5 @@
+"use client";
+
 import { fetchCars } from "@/lib/data";
 import CarsContainer from "@/ui/skylines/cars-container";
 
