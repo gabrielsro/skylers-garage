@@ -5,14 +5,446 @@ import { Model } from "./definitions";
 import { User } from "./definitions";
 import { UsersResult } from "./definitions";
 
-export async function fetchCars(model?: Model): Promise<Car[] | undefined> {
+export async function fetchCars(
+  model?: Model,
+  searchParams?: { sort?: string; transmission?: string; color?: string }
+): Promise<Car[] | undefined> {
   try {
     let cars;
-    if (!model) {
-      cars = await sql<Car>`SELECT * FROM cars`;
+    let params = searchParams
+      ? Object.entries(searchParams).filter((entry) => Object.values(entry)[0])
+      : [];
+
+    let criteria = params.filter((p) => p[0] !== "sort");
+    let sort = params.filter((p) => p[0] === "sort");
+    let order;
+    let orderColumn;
+    if (sort.length > 0) {
+      order = sort[0][1].split("-")[1];
+      orderColumn = sort[0][1].split("-")[0];
     }
+
+    console.log("searchparams:");
+    console.log(searchParams);
+    console.log("params:");
+    console.log(params);
+    console.log("criteria:");
+    console.log(criteria);
+    console.log("sort:");
+    console.log(sort);
+    console.log("order:");
+    console.log(order);
+    console.log("order column:");
+    console.log(orderColumn);
+
     if (model) {
-      cars = await sql<Car>`SELECT * FROM cars WHERE model = ${model}`;
+      console.log("model");
+      console.log(sort);
+      if (sort.length > 0) {
+        console.log("user wants it sorted");
+        if (criteria.length < 1) {
+          console.log("no criteria");
+          if (orderColumn === "price" && order === "ASC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+            WHERE cars.model = ${model}
+            ORDER BY cars.price ASC`;
+          }
+          if (orderColumn === "price" && order === "DESC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+            WHERE cars.model = ${model}
+            ORDER BY cars.price DESC`;
+          }
+          if (orderColumn === "mileage" && order === "ASC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+            WHERE cars.model = ${model}
+            ORDER BY cars.mileage ASC`;
+          }
+          if (orderColumn === "mileage" && order === "DESC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+            WHERE cars.model = ${model}
+            ORDER BY cars.mileage DESC`;
+          }
+          if (orderColumn === "year" && order === "DESC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+            WHERE cars.model = ${model}
+            ORDER BY cars.year DESC`;
+          }
+          if (orderColumn === "year" && order === "ASC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+            WHERE cars.model = ${model}
+            ORDER BY cars.year ASC`;
+          }
+        }
+        if (criteria.length === 1) {
+          console.log("1 criteria");
+          if (criteria[0][0] === "transmission") {
+            if (orderColumn === "price" && order === "ASC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                AND cars.model = ${model}
+                ORDER BY cars.price ASC`;
+            }
+            if (orderColumn === "price" && order === "DESC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                AND cars.model = ${model}
+                ORDER BY cars.price DESC`;
+            }
+            if (orderColumn === "mileage" && order === "ASC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                AND cars.model = ${model}
+                ORDER BY cars.mileage ASC`;
+            }
+            if (orderColumn === "mileage" && order === "DESC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                AND cars.model = ${model}
+                ORDER BY cars.mileage DESC`;
+            }
+            if (orderColumn === "year" && order === "DESC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                AND cars.model = ${model}
+                ORDER BY cars.year DESC`;
+            }
+            if (orderColumn === "year" && order === "ASC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                AND cars.model = ${model}
+                ORDER BY cars.year ASC`;
+            }
+          }
+          if (criteria[0][0] === "color") {
+            if (orderColumn === "price" && order === "ASC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  AND cars.model = ${model}
+                  ORDER BY cars.price ASC`;
+            }
+            if (orderColumn === "price" && order === "DESC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  AND cars.model = ${model}
+                  ORDER BY cars.price DESC`;
+            }
+            if (orderColumn === "mileage" && order === "ASC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  AND cars.model = ${model}
+                  ORDER BY cars.mileage ASC`;
+            }
+            if (orderColumn === "mileage" && order === "DESC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  AND cars.model = ${model}
+                  ORDER BY cars.mileage DESC`;
+            }
+            if (orderColumn === "year" && order === "DESC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  AND cars.model = ${model}
+                  ORDER BY cars.year DESC`;
+            }
+            if (orderColumn === "year" && order === "ASC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  AND cars.model = ${model}
+                  ORDER BY cars.year ASC`;
+            }
+          }
+        }
+        if (criteria.length === 2) {
+          console.log("2 criteria");
+          if (orderColumn === "price" && order === "ASC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              AND cars.model = ${model}
+              ORDER BY cars.price ASC`;
+          }
+          if (orderColumn === "price" && order === "DESC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              AND cars.model = ${model}
+              ORDER BY cars.price DESC`;
+          }
+          if (orderColumn === "mileage" && order === "ASC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              AND cars.model = ${model}
+              ORDER BY cars.mileage ASC`;
+          }
+          if (orderColumn === "mileage" && order === "DESC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              AND cars.model = ${model}
+              ORDER BY cars.mileage DESC`;
+          }
+          if (orderColumn === "year" && order === "DESC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              AND cars.model = ${model}
+              ORDER BY cars.year DESC`;
+          }
+          if (orderColumn === "year" && order === "ASC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              AND cars.model = ${model}
+              ORDER BY cars.year ASC`;
+          }
+        }
+      }
+      if (sort.length < 1) {
+        console.log("no sort needed");
+        if (criteria.length < 1) {
+          console.log("no criteria");
+          cars = await sql<Car>`SELECT * FROM cars 
+          WHERE cars.model = ${model}`;
+        }
+        if (criteria.length === 1) {
+          console.log("1 criteria");
+          if (criteria[0][0] === "transmission") {
+            cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission} 
+                AND cars.model = ${model}
+                `;
+          }
+          if (criteria[0][0] === "color") {
+            cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`} 
+                  AND cars.model = ${model}
+                  `;
+          }
+        }
+        if (criteria.length === 2) {
+          console.log("2 criteria");
+          cars = await sql<Car>`SELECT * FROM cars
+          WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+          AND cars.transmission = ${
+            searchParams?.transmission
+          } AND cars.model = ${model}`;
+        }
+      }
+    }
+
+    if (!model) {
+      console.log("no model");
+      if (sort.length > 0) {
+        console.log("user wants it sorted");
+        if (criteria.length < 1) {
+          console.log("no criteria");
+          if (orderColumn === "price" && order === "ASC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+            ORDER BY cars.price ASC`;
+          }
+          if (orderColumn === "price" && order === "DESC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+            ORDER BY cars.price DESC`;
+          }
+          if (orderColumn === "mileage" && order === "ASC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+            ORDER BY cars.mileage ASC`;
+          }
+          if (orderColumn === "mileage" && order === "DESC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+            ORDER BY cars.mileage DESC`;
+          }
+          if (orderColumn === "year" && order === "DESC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+            ORDER BY cars.year DESC`;
+          }
+          if (orderColumn === "year" && order === "ASC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+            ORDER BY cars.year ASC`;
+          }
+        }
+        if (criteria.length === 1) {
+          console.log("1 criteria");
+          if (criteria[0][0] === "transmission") {
+            if (orderColumn === "price" && order === "ASC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                ORDER BY cars.price ASC`;
+            }
+            if (orderColumn === "price" && order === "DESC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                ORDER BY cars.price DESC`;
+            }
+            if (orderColumn === "mileage" && order === "ASC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                ORDER BY cars.mileage ASC`;
+            }
+            if (orderColumn === "mileage" && order === "DESC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                ORDER BY cars.mileage DESC`;
+            }
+            if (orderColumn === "year" && order === "DESC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                ORDER BY cars.year DESC`;
+            }
+            if (orderColumn === "year" && order === "ASC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                ORDER BY cars.year ASC`;
+            }
+          }
+          if (criteria[0][0] === "color") {
+            if (orderColumn === "price" && order === "ASC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  ORDER BY cars.price ASC`;
+            }
+            if (orderColumn === "price" && order === "DESC") {
+              console.log("by price");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  ORDER BY cars.price DESC`;
+            }
+            if (orderColumn === "mileage" && order === "ASC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  ORDER BY cars.mileage ASC`;
+            }
+            if (orderColumn === "mileage" && order === "DESC") {
+              console.log("by mileage");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  ORDER BY cars.mileage DESC`;
+            }
+            if (orderColumn === "year" && order === "DESC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  ORDER BY cars.year DESC`;
+            }
+            if (orderColumn === "year" && order === "ASC") {
+              console.log("by year");
+              cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  ORDER BY cars.year ASC`;
+            }
+          }
+        }
+        if (criteria.length === 2) {
+          console.log("2 criteria");
+          if (orderColumn === "price" && order === "ASC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              ORDER BY cars.price ASC`;
+          }
+          if (orderColumn === "price" && order === "DESC") {
+            console.log("by price");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              ORDER BY cars.price DESC`;
+          }
+          if (orderColumn === "mileage" && order === "ASC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              ORDER BY cars.mileage ASC`;
+          }
+          if (orderColumn === "mileage" && order === "DESC") {
+            console.log("by mileage");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              ORDER BY cars.mileage DESC`;
+          }
+          if (orderColumn === "year" && order === "DESC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              ORDER BY cars.year DESC`;
+          }
+          if (orderColumn === "year" && order === "ASC") {
+            console.log("by year");
+            cars = await sql<Car>`SELECT * FROM cars
+              WHERE cars.transmission = ${searchParams?.transmission}
+              AND cars.color ILIKE ${`%${searchParams?.color}%`}
+              ORDER BY cars.year ASC`;
+          }
+        }
+      }
+      if (sort.length < 1) {
+        console.log("no sort needed");
+        if (criteria.length < 1) {
+          console.log("no criteria");
+          cars = await sql<Car>`SELECT * FROM cars`;
+        }
+        if (criteria.length === 1) {
+          console.log("1 criteria");
+          if (criteria[0][0] === "transmission") {
+            cars = await sql<Car>`SELECT * FROM cars
+                WHERE cars.transmission = ${searchParams?.transmission}
+                `;
+          }
+          if (criteria[0][0] === "color") {
+            cars = await sql<Car>`SELECT * FROM cars
+                  WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                  `;
+          }
+        }
+        if (criteria.length === 2) {
+          console.log("2 criteria");
+          cars = await sql<Car>`SELECT * FROM cars
+          WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+          AND cars.transmission = ${searchParams?.transmission}`;
+        }
+      }
     }
     return cars?.rows;
   } catch (error) {
