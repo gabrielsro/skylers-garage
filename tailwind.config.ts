@@ -19,6 +19,7 @@ const config: Config = {
         "car-cards-mobile": "repeat(auto-fill,minmax(150px,175px))",
         "recent-users-model-tempate": "57vw 43vw",
         "pagination-component": "50px auto 50px",
+        "form-format": "99px 270px",
       },
       minHeight: { half: "50vh", lg: "30vh" },
       spacing: {
