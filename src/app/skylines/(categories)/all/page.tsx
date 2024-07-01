@@ -6,11 +6,19 @@ export default function Page({
 }: {
   searchParams?: { color?: string; transmission?: string; sort?: string };
 }) {
+  const query = {
+    color: searchParams?.color ? searchParams.color : undefined,
+    transmission: searchParams?.transmission
+      ? searchParams.transmission
+      : undefined,
+    sort: searchParams?.sort ? searchParams.sort : undefined,
+  };
+
   return (
     <div className="pt-6">
       <p>All</p>
       <Suspense>
-        <CarsContainer searchParams={searchParams} model={undefined} />
+        <CarsContainer query={query} model={undefined} />
       </Suspense>
     </div>
   );

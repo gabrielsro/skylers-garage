@@ -35,7 +35,7 @@ export type User = {
   created_at?: [];
 };
 
-export type Model = "R32" | "R33" | "R34" | "ALL";
+export type Model = "R32" | "R33" | "R34" | undefined;
 
 export type UsersResult = {
   id: string;

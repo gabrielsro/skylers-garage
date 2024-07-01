@@ -27,7 +27,11 @@ export async function fetchUserPages(query: string) {
 
 export async function fetchCars(
   model?: Model,
-  searchParams?: { sort?: string; transmission?: string; color?: string }
+  searchParams?: {
+    sort?: string | undefined;
+    transmission?: string | undefined;
+    color?: string | undefined;
+  }
 ): Promise<Car[] | undefined> {
   const LIMIT = 10;
   try {
@@ -36,13 +40,13 @@ export async function fetchCars(
       ? Object.entries(searchParams).filter((entry) => Object.values(entry)[0])
       : [];
 
-    let criteria = params.filter((p) => p[0] !== "sort");
-    let sort = params.filter((p) => p[0] === "sort");
+    let criteria = params.filter((p) => p[0] !== "sort" && p[1]);
+    let sort = params.filter((p) => p[0] === "sort" && p[1]);
     let order;
     let orderColumn;
     if (sort.length > 0) {
-      order = sort[0][1].split("-")[1];
-      orderColumn = sort[0][1].split("-")[0];
+      order = sort[0][1]?.split("-")[1];
+      orderColumn = sort[0][1]?.split("-")[0];
     }
 
     console.log("searchparams:");
