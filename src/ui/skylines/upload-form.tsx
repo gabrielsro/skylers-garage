@@ -1,8 +1,10 @@
+import { createCar } from "@/lib/actions";
+import { create } from "domain";
 import Link from "next/link";
 
 export default function UploadForm() {
   return (
-    <form className="pt-10">
+    <form className="pt-5" action={createCar}>
       <fieldset>
         <legend>Basics</legend>
         <div className="grid grid-cols-form-format gap-x-2 gap-y-3">
@@ -49,6 +51,16 @@ export default function UploadForm() {
             <option value="Nismo 400R">Nismo 400R</option>
             <option value="V-Spec II">V-Spec II</option>
           </select>
+          <label htmlFor="transmission" className="justify-self-end">
+            Transmission:
+          </label>
+          <select name="transmission" id="transmission">
+            <option value="" hidden={true}>
+              Select transmission
+            </option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+          </select>
           <label htmlFor="mileage" className="justify-self-end">
             Mileage:
           </label>
@@ -80,10 +92,10 @@ export default function UploadForm() {
             <option value="RB26DETT">RB26DETT</option>
             <option value="RBX-GT2">RBX-GT2</option>
           </select>
-          <label htmlFor="enginevariation" className="justify-self-end">
+          <label htmlFor="engineVariation" className="justify-self-end">
             Variation:
           </label>
-          <select name="enginevariation" id="enginevariation">
+          <select name="engineVariation" id="engineVariation">
             <option value="" hidden={true}>
               Select engine variation
             </option>
@@ -107,10 +119,10 @@ export default function UploadForm() {
       <fieldset>
         <legend>Performance</legend>
         <div className="grid grid-cols-form-format gap-x-2 gap-y-3">
-          <label htmlFor="topspeed" className="justify-self-end">
+          <label htmlFor="topSpeed" className="justify-self-end">
             Top Speed:
           </label>
-          <input type="number" id="topspeed" name="topspeed" />
+          <input type="number" id="topSpeed" name="topSpeed" />
           <label htmlFor="acceleration" className="justify-self-end">
             Acceleration:
           </label>

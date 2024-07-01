@@ -18,6 +18,28 @@ export type Car = {
   horsepower?: number;
 };
 
+export type CarUpload = {
+  model: string;
+  edition?: string;
+  engine: string;
+  displacement?: number;
+  enginevariation?: string;
+  transmission?: string;
+  weigth?: number;
+  topspeed?: number;
+  price: number;
+  location?: string;
+  seller?: string;
+  mileage?: number;
+  year?: number;
+  color: string;
+  acceleration?: number;
+  torque?: number;
+  horsepower?: number;
+  src?: string;
+  description?: string;
+};
+
 export type Recent = {
   name: string;
   location: string;
