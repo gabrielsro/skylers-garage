@@ -1,4 +1,5 @@
 import CarsContainer from "@/ui/skylines/cars-container";
+import { Suspense } from "react";
 
 export default function Page({
   searchParams,
@@ -8,7 +9,9 @@ export default function Page({
   return (
     <div className="pt-6">
       <p>All</p>
-      {/* <CarsContainer searchParams={searchParams} model={undefined} /> */}
+      <Suspense>
+        <CarsContainer searchParams={searchParams} model={undefined} />
+      </Suspense>
     </div>
   );
 }
