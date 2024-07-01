@@ -5,7 +5,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid grid-cols-side-nav min-h-screen">
       <SideNav />
-      <div className="flex flex-col pt-10">
+      <div className="flex flex-col pt-12">
         <SortFilterBar />
         {children}
       </div>

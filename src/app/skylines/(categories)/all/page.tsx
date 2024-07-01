@@ -22,7 +22,6 @@ export default function Page({
 
   return (
     <div className="pt-6">
-      <p>All</p>
       <Suspense>
         <CarsContainer query={query} model={undefined} currentPage={page} />
       </Suspense>

@@ -14,7 +14,7 @@ export default async function CarCard({ car }: { car: Car }) {
       />
       <div className="p-1 whitespace-nowrap">
         <p className="overflow-hidden overflow-ellipsis">{`${car.year} ${car.model} ${car.edition}`}</p>
-        <p>{`${car.mileage} miles`}</p>
+        <p className="text-nord3">{`${car.mileage} miles`}</p>
         <p>{formatCurrency(car.price)}</p>
       </div>
     </div>

@@ -28,6 +28,7 @@ const config: Config = {
         "pic-xs": "30px",
         "cars-container": "530px",
         "car-card": "16rem",
+        "select-filter-bar": "90px",
       },
     },
   },
