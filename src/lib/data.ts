@@ -29,6 +29,7 @@ export async function fetchCars(
   model?: Model,
   searchParams?: { sort?: string; transmission?: string; color?: string }
 ): Promise<Car[] | undefined> {
+  const LIMIT = 10;
   try {
     let cars;
     let params = searchParams
@@ -249,7 +250,9 @@ export async function fetchCars(
         if (criteria.length < 1) {
           console.log("no criteria");
           cars = await sql<Car>`SELECT * FROM cars 
-          WHERE cars.model = ${model}`;
+          WHERE cars.model = ${model}
+          LIMIT ${LIMIT}
+          `;
         }
         if (criteria.length === 1) {
           console.log("1 criteria");
@@ -441,9 +444,11 @@ export async function fetchCars(
       }
       if (sort.length < 1) {
         console.log("no sort needed");
+        console.log("ARISTIDES");
         if (criteria.length < 1) {
           console.log("no criteria");
-          cars = await sql<Car>`SELECT * FROM cars`;
+          cars = await sql<Car>`SELECT * FROM cars
+          LIMIT 10`;
         }
         if (criteria.length === 1) {
           console.log("1 criteria");

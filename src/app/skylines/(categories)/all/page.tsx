@@ -1,21 +1,14 @@
-"use client";
-
-import { fetchCars } from "@/lib/data";
 import CarsContainer from "@/ui/skylines/cars-container";
 
-export default async function Page({
+export default function Page({
   searchParams,
 }: {
   searchParams?: { color?: string; transmission?: string; sort?: string };
 }) {
-  const cars = await fetchCars(undefined, searchParams);
-  const x = JSON.stringify(searchParams);
-  const y = JSON.stringify(cars);
   return (
     <div className="pt-6">
-      <p>{x}</p>
-      <p>{y}</p>
-      <CarsContainer cars={cars} />
+      <p>All</p>
+      <CarsContainer searchParams={searchParams} model={undefined} />
     </div>
   );
 }
