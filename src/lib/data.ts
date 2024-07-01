@@ -34,6 +34,7 @@ export async function fetchCars(
   }
 ): Promise<Car[] | undefined> {
   const LIMIT = 10;
+  const OFFSET = 0;
   try {
     let cars;
     let params = searchParams
@@ -73,37 +74,49 @@ export async function fetchCars(
             console.log("by price");
             cars = await sql<Car>`SELECT * FROM cars
             WHERE cars.model = ${model}
-            ORDER BY cars.price ASC`;
+            ORDER BY cars.price ASC 
+            LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "price" && order === "DESC") {
             console.log("by price");
             cars = await sql<Car>`SELECT * FROM cars
             WHERE cars.model = ${model}
-            ORDER BY cars.price DESC`;
+            ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "mileage" && order === "ASC") {
             console.log("by mileage");
             cars = await sql<Car>`SELECT * FROM cars
             WHERE cars.model = ${model}
-            ORDER BY cars.mileage ASC`;
+            ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "mileage" && order === "DESC") {
             console.log("by mileage");
             cars = await sql<Car>`SELECT * FROM cars
             WHERE cars.model = ${model}
-            ORDER BY cars.mileage DESC`;
+            ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "year" && order === "DESC") {
             console.log("by year");
             cars = await sql<Car>`SELECT * FROM cars
             WHERE cars.model = ${model}
-            ORDER BY cars.year DESC`;
+            ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "year" && order === "ASC") {
             console.log("by year");
             cars = await sql<Car>`SELECT * FROM cars
             WHERE cars.model = ${model}
-            ORDER BY cars.year ASC`;
+            ORDER BY cars.year ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
         }
         if (criteria.length === 1) {
@@ -114,42 +127,54 @@ export async function fetchCars(
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
                 AND cars.model = ${model}
-                ORDER BY cars.price ASC`;
+                ORDER BY cars.price ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "price" && order === "DESC") {
               console.log("by price");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
                 AND cars.model = ${model}
-                ORDER BY cars.price DESC`;
+                ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "mileage" && order === "ASC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
                 AND cars.model = ${model}
-                ORDER BY cars.mileage ASC`;
+                ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "mileage" && order === "DESC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
                 AND cars.model = ${model}
-                ORDER BY cars.mileage DESC`;
+                ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "year" && order === "DESC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
                 AND cars.model = ${model}
-                ORDER BY cars.year DESC`;
+                ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "year" && order === "ASC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
                 AND cars.model = ${model}
-                ORDER BY cars.year ASC`;
+                ORDER BY cars.year ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
           }
           if (criteria[0][0] === "color") {
@@ -158,42 +183,54 @@ export async function fetchCars(
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
                   AND cars.model = ${model}
-                  ORDER BY cars.price ASC`;
+                  ORDER BY cars.price ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "price" && order === "DESC") {
               console.log("by price");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
                   AND cars.model = ${model}
-                  ORDER BY cars.price DESC`;
+                  ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "mileage" && order === "ASC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
                   AND cars.model = ${model}
-                  ORDER BY cars.mileage ASC`;
+                  ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "mileage" && order === "DESC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
                   AND cars.model = ${model}
-                  ORDER BY cars.mileage DESC`;
+                  ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "year" && order === "DESC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
                   AND cars.model = ${model}
-                  ORDER BY cars.year DESC`;
+                  ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "year" && order === "ASC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
                   AND cars.model = ${model}
-                  ORDER BY cars.year ASC`;
+                  ORDER BY cars.year ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
           }
         }
@@ -205,7 +242,9 @@ export async function fetchCars(
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
               AND cars.model = ${model}
-              ORDER BY cars.price ASC`;
+              ORDER BY cars.price ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "price" && order === "DESC") {
             console.log("by price");
@@ -213,7 +252,9 @@ export async function fetchCars(
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
               AND cars.model = ${model}
-              ORDER BY cars.price DESC`;
+              ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "mileage" && order === "ASC") {
             console.log("by mileage");
@@ -221,7 +262,9 @@ export async function fetchCars(
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
               AND cars.model = ${model}
-              ORDER BY cars.mileage ASC`;
+              ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "mileage" && order === "DESC") {
             console.log("by mileage");
@@ -229,7 +272,9 @@ export async function fetchCars(
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
               AND cars.model = ${model}
-              ORDER BY cars.mileage DESC`;
+              ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "year" && order === "DESC") {
             console.log("by year");
@@ -237,7 +282,9 @@ export async function fetchCars(
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
               AND cars.model = ${model}
-              ORDER BY cars.year DESC`;
+              ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "year" && order === "ASC") {
             console.log("by year");
@@ -245,7 +292,9 @@ export async function fetchCars(
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
               AND cars.model = ${model}
-              ORDER BY cars.year ASC`;
+              ORDER BY cars.year ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
         }
       }
@@ -255,7 +304,7 @@ export async function fetchCars(
           console.log("no criteria");
           cars = await sql<Car>`SELECT * FROM cars 
           WHERE cars.model = ${model}
-          LIMIT ${LIMIT}
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
           `;
         }
         if (criteria.length === 1) {
@@ -264,12 +313,14 @@ export async function fetchCars(
             cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission} 
                 AND cars.model = ${model}
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
                 `;
           }
           if (criteria[0][0] === "color") {
             cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`} 
                   AND cars.model = ${model}
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
                   `;
           }
         }
@@ -279,7 +330,9 @@ export async function fetchCars(
           WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
           AND cars.transmission = ${
             searchParams?.transmission
-          } AND cars.model = ${model}`;
+          } AND cars.model = ${model}
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+          `;
         }
       }
     }
@@ -293,32 +346,44 @@ export async function fetchCars(
           if (orderColumn === "price" && order === "ASC") {
             console.log("by price");
             cars = await sql<Car>`SELECT * FROM cars
-            ORDER BY cars.price ASC`;
+            ORDER BY cars.price ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "price" && order === "DESC") {
             console.log("by price");
             cars = await sql<Car>`SELECT * FROM cars
-            ORDER BY cars.price DESC`;
+            ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "mileage" && order === "ASC") {
             console.log("by mileage");
             cars = await sql<Car>`SELECT * FROM cars
-            ORDER BY cars.mileage ASC`;
+            ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "mileage" && order === "DESC") {
             console.log("by mileage");
             cars = await sql<Car>`SELECT * FROM cars
-            ORDER BY cars.mileage DESC`;
+            ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "year" && order === "DESC") {
             console.log("by year");
             cars = await sql<Car>`SELECT * FROM cars
-            ORDER BY cars.year DESC`;
+            ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
           if (orderColumn === "year" && order === "ASC") {
             console.log("by year");
             cars = await sql<Car>`SELECT * FROM cars
-            ORDER BY cars.year ASC`;
+            ORDER BY cars.year ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+            `;
           }
         }
         if (criteria.length === 1) {
@@ -328,37 +393,49 @@ export async function fetchCars(
               console.log("by price");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
-                ORDER BY cars.price ASC`;
+                ORDER BY cars.price ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "price" && order === "DESC") {
               console.log("by price");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
-                ORDER BY cars.price DESC`;
+                ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "mileage" && order === "ASC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
-                ORDER BY cars.mileage ASC`;
+                ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "mileage" && order === "DESC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
-                ORDER BY cars.mileage DESC`;
+                ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "year" && order === "DESC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
-                ORDER BY cars.year DESC`;
+                ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
             if (orderColumn === "year" && order === "ASC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                 WHERE cars.transmission = ${searchParams?.transmission}
-                ORDER BY cars.year ASC`;
+                ORDER BY cars.year ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                `;
             }
           }
           if (criteria[0][0] === "color") {
@@ -366,37 +443,49 @@ export async function fetchCars(
               console.log("by price");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
-                  ORDER BY cars.price ASC`;
+                  ORDER BY cars.price ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "price" && order === "DESC") {
               console.log("by price");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
-                  ORDER BY cars.price DESC`;
+                  ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "mileage" && order === "ASC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
-                  ORDER BY cars.mileage ASC`;
+                  ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "mileage" && order === "DESC") {
               console.log("by mileage");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
-                  ORDER BY cars.mileage DESC`;
+                  ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "year" && order === "DESC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
-                  ORDER BY cars.year DESC`;
+                  ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
             if (orderColumn === "year" && order === "ASC") {
               console.log("by year");
               cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
-                  ORDER BY cars.year ASC`;
+                  ORDER BY cars.year ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+                  `;
             }
           }
         }
@@ -407,63 +496,77 @@ export async function fetchCars(
             cars = await sql<Car>`SELECT * FROM cars
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
-              ORDER BY cars.price ASC`;
+              ORDER BY cars.price ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "price" && order === "DESC") {
             console.log("by price");
             cars = await sql<Car>`SELECT * FROM cars
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
-              ORDER BY cars.price DESC`;
+              ORDER BY cars.price DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "mileage" && order === "ASC") {
             console.log("by mileage");
             cars = await sql<Car>`SELECT * FROM cars
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
-              ORDER BY cars.mileage ASC`;
+              ORDER BY cars.mileage ASC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "mileage" && order === "DESC") {
             console.log("by mileage");
             cars = await sql<Car>`SELECT * FROM cars
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
-              ORDER BY cars.mileage DESC`;
+              ORDER BY cars.mileage DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "year" && order === "DESC") {
             console.log("by year");
             cars = await sql<Car>`SELECT * FROM cars
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
-              ORDER BY cars.year DESC`;
+              ORDER BY cars.year DESC
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
           if (orderColumn === "year" && order === "ASC") {
             console.log("by year");
             cars = await sql<Car>`SELECT * FROM cars
               WHERE cars.transmission = ${searchParams?.transmission}
               AND cars.color ILIKE ${`%${searchParams?.color}%`}
-              ORDER BY cars.year ASC`;
+              ORDER BY cars.year ASC 
+              LIMIT ${LIMIT} OFFSET ${OFFSET}
+              `;
           }
         }
       }
       if (sort.length < 1) {
         console.log("no sort needed");
-        console.log("ARISTIDES");
         if (criteria.length < 1) {
           console.log("no criteria");
-          cars = await sql<Car>`SELECT * FROM cars
-          LIMIT 10`;
+          cars = await sql<Car>`SELECT * FROM cars 
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+          `;
         }
         if (criteria.length === 1) {
           console.log("1 criteria");
           if (criteria[0][0] === "transmission") {
             cars = await sql<Car>`SELECT * FROM cars
-                WHERE cars.transmission = ${searchParams?.transmission}
+                WHERE cars.transmission = ${searchParams?.transmission} 
+                LIMIT ${LIMIT} OFFSET ${OFFSET}
                 `;
           }
           if (criteria[0][0] === "color") {
             cars = await sql<Car>`SELECT * FROM cars
                   WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
                   `;
           }
         }
@@ -471,7 +574,9 @@ export async function fetchCars(
           console.log("2 criteria");
           cars = await sql<Car>`SELECT * FROM cars
           WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
-          AND cars.transmission = ${searchParams?.transmission}`;
+          AND cars.transmission = ${searchParams?.transmission}
+          LIMIT ${LIMIT} OFFSET ${OFFSET}
+          `;
         }
       }
     }
