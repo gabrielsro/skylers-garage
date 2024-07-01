@@ -8,7 +8,7 @@ export default function Page({
   return (
     <div className="pt-6">
       <p>All</p>
-      <CarsContainer searchParams={searchParams} model={undefined} />
+      {/* <CarsContainer searchParams={searchParams} model={undefined} /> */}
     </div>
   );
 }

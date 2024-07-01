@@ -8,7 +8,7 @@ export default async function Page({
   return (
     <div className="pt-6">
       <p>R34</p>
-      <CarsContainer searchParams={searchParams} model={"R34"} />
+      {/* <CarsContainer searchParams={searchParams} model={"R34"} /> */}
     </div>
   );
 }
