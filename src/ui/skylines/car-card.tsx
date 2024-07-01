@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default async function CarCard({ car }: { car: Car }) {
   return (
-    <div className="flex flex-col shadow-lg rounded-sm">
+    <div className="flex flex-col shadow-lg rounded-sm h-car-card">
       {/* {!car.src || car.src } */}
       <Image
         height={505}

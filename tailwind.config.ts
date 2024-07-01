@@ -26,6 +26,8 @@ const config: Config = {
         "pic-inter": "60px",
         "pic-md": "120px",
         "pic-xs": "30px",
+        "cars-container": "530px",
+        "car-card": "16rem",
       },
     },
   },
