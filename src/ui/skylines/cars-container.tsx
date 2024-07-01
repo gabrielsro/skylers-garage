@@ -25,7 +25,7 @@ export default async function CarsContainer({
           return <CarCard car={car} key={i} />;
         })}
       </div>
-      <div>
+      <div className="pt-5 pb-6 md:pt-8">
         <Pagination totalPages={totalPages} />
       </div>
     </div>

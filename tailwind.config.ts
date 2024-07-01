@@ -18,6 +18,7 @@ const config: Config = {
         "side-nav": "auto minmax(0,1fr)",
         "car-cards-mobile": "repeat(auto-fill,minmax(150px,175px))",
         "recent-users-model-tempate": "57vw 43vw",
+        "pagination-component": "50px auto 50px",
       },
       minHeight: { half: "50vh", lg: "30vh" },
       spacing: {
