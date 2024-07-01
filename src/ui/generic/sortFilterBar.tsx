@@ -9,6 +9,7 @@ export default function SortFilterBar() {
   const { replace } = useRouter();
 
   function handleSort(val: string) {
+    params.set("page", "1");
     if (val) {
       params.set("sort", val);
     } else {
@@ -17,6 +18,7 @@ export default function SortFilterBar() {
     replace(`${pathname}/?${params.toString()}`);
   }
   function handleTransmission(val: string) {
+    params.set("page", "1");
     if (val && val !== "All") {
       params.set("transmission", val);
     } else {
@@ -25,6 +27,7 @@ export default function SortFilterBar() {
     replace(`${pathname}/?${params.toString()}`);
   }
   function handleColor(val: string) {
+    params.set("page", "1");
     if (val && val !== "All") {
       params.set("color", val);
     } else {
@@ -42,7 +45,9 @@ export default function SortFilterBar() {
           className="w-20 overflow-hidden overflow-ellipsis rounded-md pl-2"
           onChange={(e) => handleSort(e.target.value)}
         >
-          <option hidden={true}>Sort By</option>
+          <option hidden={true} selected={params.get("sort") === null}>
+            Sort By
+          </option>
           <option value="price-ASC">Price Lowest to Highest</option>
           <option value="price-DESC">Price Highest to Lowest</option>
           <option value="year-DESC">Newest to Oldest</option>
@@ -57,7 +62,9 @@ export default function SortFilterBar() {
           className="w-20 overflow-hidden overflow-ellipsis rounded-md pl-2"
           onChange={(e) => handleTransmission(e.target.value)}
         >
-          <option hidden={true}>Transmission</option>
+          <option hidden={true} selected={params?.get("transmission") === null}>
+            Transmission
+          </option>
           <option value={undefined}>All</option>
           <option value="Automatic">Automatic</option>
           <option value="Manual">Manual</option>
@@ -69,7 +76,9 @@ export default function SortFilterBar() {
           className="w-20 overflow-hidden overflow-ellipsis rounded-md pl-2"
           onChange={(e) => handleColor(e.target.value)}
         >
-          <option hidden={true}>Color</option>
+          <option hidden={true} selected={params?.get("color") === null}>
+            Color
+          </option>
           <option value={undefined}>All</option>
           <option value="Black">Black</option>
           <option value="Blue">Blue</option>

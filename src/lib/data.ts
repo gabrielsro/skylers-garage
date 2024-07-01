@@ -6,6 +6,7 @@ import { User } from "./definitions";
 import { UsersResult } from "./definitions";
 
 const ITEMS_PER_PAGE = 8;
+const CARS_PER_PAGE = 10;
 
 export async function fetchUserPages(query: string) {
   try {
@@ -25,16 +26,96 @@ export async function fetchUserPages(query: string) {
   }
 }
 
-export async function fetchCars(
+export async function fetchCarPages(
   model?: Model,
   searchParams?: {
     sort?: string | undefined;
     transmission?: string | undefined;
     color?: string | undefined;
   }
+) {
+  try {
+    let cars;
+    let params = searchParams
+      ? Object.entries(searchParams).filter((entry) => Object.values(entry)[0])
+      : [];
+
+    let criteria = params.filter((p) => p[0] !== "sort" && p[1]);
+    if (model) {
+      if (criteria.length < 1) {
+        cars = await sql`SELECT COUNT(*) FROM cars 
+            WHERE cars.model = ${model}
+            `;
+      }
+      if (criteria.length === 1) {
+        if (criteria[0][0] === "transmission") {
+          cars = await sql`SELECT COUNT(*) FROM cars
+                  WHERE cars.transmission = ${searchParams?.transmission} 
+                  AND cars.model = ${model}
+                  `;
+        }
+        if (criteria[0][0] === "color") {
+          cars = await sql`SELECT COUNT(*) FROM cars
+                    WHERE cars.color ILIKE ${`%${searchParams?.color}%`} 
+                    AND cars.model = ${model}
+                    `;
+        }
+      }
+      if (criteria.length === 2) {
+        cars = await sql`SELECT COUNT(*) FROM cars
+            WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+            AND cars.transmission = ${
+              searchParams?.transmission
+            } AND cars.model = ${model}
+            `;
+      }
+    }
+
+    if (!model) {
+      if (criteria.length < 1) {
+        cars = await sql`SELECT COUNT(*) FROM cars 
+            `;
+      }
+      if (criteria.length === 1) {
+        if (criteria[0][0] === "transmission") {
+          cars = await sql`SELECT COUNT(*) FROM cars
+                  WHERE cars.transmission = ${searchParams?.transmission} 
+                  `;
+        }
+        if (criteria[0][0] === "color") {
+          cars = await sql`SELECT COUNT(*) FROM cars
+                    WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+                    `;
+        }
+      }
+      if (criteria.length === 2) {
+        cars = await sql`SELECT COUNT(*) FROM cars
+            WHERE cars.color ILIKE ${`%${searchParams?.color}%`}
+            AND cars.transmission = ${searchParams?.transmission}
+            `;
+      }
+    }
+
+    const totalPages = Math.ceil(Number(cars?.rows[0]?.count) / CARS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error("Database error: ", error);
+    throw new Error("Failed to fetch total number of cars");
+  }
+}
+
+export async function fetchCars(
+  model?: Model,
+  searchParams?: {
+    sort?: string | undefined;
+    transmission?: string | undefined;
+    color?: string | undefined;
+  },
+  currentPage?: number
 ): Promise<Car[] | undefined> {
-  const LIMIT = 10;
-  const OFFSET = 0;
+  const LIMIT = CARS_PER_PAGE;
+  const OFFSET = ((currentPage || 1) - 1) * CARS_PER_PAGE;
+
   try {
     let cars;
     let params = searchParams

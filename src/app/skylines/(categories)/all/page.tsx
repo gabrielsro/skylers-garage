@@ -4,8 +4,14 @@ import { Suspense } from "react";
 export default function Page({
   searchParams,
 }: {
-  searchParams?: { color?: string; transmission?: string; sort?: string };
+  searchParams?: {
+    color?: string;
+    transmission?: string;
+    sort?: string;
+    page?: string;
+  };
 }) {
+  const page = Number(searchParams?.page) || 1;
   const query = {
     color: searchParams?.color ? searchParams.color : undefined,
     transmission: searchParams?.transmission
@@ -18,7 +24,7 @@ export default function Page({
     <div className="pt-6">
       <p>All</p>
       <Suspense>
-        <CarsContainer query={query} model={undefined} />
+        <CarsContainer query={query} model={undefined} currentPage={page} />
       </Suspense>
     </div>
   );
