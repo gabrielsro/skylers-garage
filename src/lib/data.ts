@@ -104,6 +104,16 @@ export async function fetchCarPages(
   }
 }
 
+export async function fetchCar(id: string) {
+  try {
+    const car = await sql<Car>`SELECT * FROM cars WHERE id = ${id}`;
+    return car.rows[0];
+  } catch (error) {
+    console.error("Database error: ", error);
+    throw new Error("Failed to fetch car");
+  }
+}
+
 export async function fetchCars(
   model?: Model,
   searchParams?: {

@@ -1,11 +1,12 @@
 export type Car = {
+  id: string;
   model: string;
   edition?: string;
   engine: string;
   displacement?: number;
   engineVariation?: string;
   transmission?: string;
-  weigth?: number;
+  weight?: number;
   topSpeed?: number;
   price: number;
   location?: string;
@@ -16,6 +17,8 @@ export type Car = {
   acceleration?: number;
   torque?: number;
   horsepower?: number;
+  description?: string;
+  src?: string;
 };
 
 export type CarUpload = {
