@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { Car } from "./definitions";
+import { SellerMinimal } from "./definitions";
 import { Recent } from "./definitions";
 import { Model } from "./definitions";
 import { User } from "./definitions";
@@ -107,13 +108,34 @@ export async function fetchCarPages(
 export async function fetchCar(id: string) {
   try {
     const car = await sql<Car>`SELECT * FROM cars WHERE id = ${id}`;
-    return car.rows[0];
+    return car?.rows[0];
   } catch (error) {
     console.error("Database error: ", error);
     throw new Error("Failed to fetch car");
   }
 }
 
+export async function fetchSeller(seller: {
+  name?: string | undefined;
+  id?: string | undefined;
+}) {
+  let s;
+  try {
+    if (seller.id) {
+      s =
+        await sql<SellerMinimal>`SELECT name, id, src FROM users WHERE id = ${seller.id}`;
+      return s.rows[0];
+    }
+    if (seller.name) {
+      s =
+        await sql<SellerMinimal>`SELECT name, id, src FROM users WHERE name = ${seller.name}`;
+      return s.rows[0];
+    }
+  } catch (error) {
+    console.error("Database error: ", error);
+    throw new Error("Failed to fetch seller");
+  }
+}
 export async function fetchCars(
   model?: Model,
   searchParams?: {

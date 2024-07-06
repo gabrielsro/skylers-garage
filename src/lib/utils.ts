@@ -7,6 +7,14 @@ export const formatCurrency = (amount: number): string => {
   });
 };
 
+export const dollarFormatter = (amount: number): string => {
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+  return formatter.format(amount);
+};
+
 export const generatePagination = (currentPage: number, totalPages: number) => {
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, i) => i + 1);

@@ -19,6 +19,13 @@ export type Car = {
   horsepower?: number;
   description?: string;
   src?: string;
+  topspeed?: number;
+};
+
+export type SellerMinimal = {
+  name: string;
+  id: string;
+  src: string;
 };
 
 export type CarUpload = {
@@ -41,6 +48,11 @@ export type CarUpload = {
   horsepower?: number;
   src?: string;
   description?: string;
+};
+
+export type CarUploadState = {
+  message?: string | null;
+  errors?: { transmission?: string[] };
 };
 
 export type Recent = {

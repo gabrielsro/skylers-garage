@@ -30,6 +30,7 @@ const config: Config = {
         "cars-container": "530px",
         "car-card": "16rem",
         "select-filter-bar": "90px",
+        "pic-main-height": "514px",
       },
     },
   },
