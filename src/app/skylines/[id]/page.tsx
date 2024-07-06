@@ -49,17 +49,20 @@ export default async function Page({ params }: { params: { id: string } }) {
         <DeleteCar id={params.id} model={model} />
       </div>
       <div className="grid place-content-center">
-        <div className="pt-3 pb-1 px-2">
+        <div className="pt-3 pb-2 px-2">
           <h1 className="text-2xl text-nord2">{`${year} Nissan ${model} ${edition}`}</h1>
           <h2 className="text-xl text-nord3">{dollarFormatter(car.price)}</h2>
         </div>
-        <div className="px-2">
-          <SellerMinimalCard
-            seller={{
-              name: sellerId ? undefined : car.seller,
-              id: sellerId ? car.seller : undefined,
-            }}
-          />
+        <div className="pl-2 pb-2 text-xs flex">
+          <p className="text-nord3">Sold by: </p>
+          <div className="pl-2">
+            <SellerMinimalCard
+              seller={{
+                name: sellerId ? undefined : car.seller,
+                id: sellerId ? car.seller : undefined,
+              }}
+            />
+          </div>
         </div>
         <div className="bg-nord7 max-h-pic-main-height w-screen">
           <p>{car.src}</p>
@@ -100,6 +103,9 @@ export default async function Page({ params }: { params: { id: string } }) {
             acceleration={car.acceleration}
             topSpeed={car.topspeed}
           />
+        </div>
+        <div className="pt-3 px-3">
+          <p className="text-nord0">{car.description}</p>
         </div>
       </div>
     </div>

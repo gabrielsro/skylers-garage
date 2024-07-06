@@ -326,6 +326,19 @@ export async function createCar(prevState: State, formdata: FormData) {
 
 export async function updateCar(id: string, formData: FormData) {
   const rawFormData = Object.fromEntries(formData.entries());
+  let validatedFields;
+  if (rawFormData.model === "R32") {
+    const finalSchema = r32Schema.extend(CarFormSchema.shape);
+    validatedFields = finalSchema.safeParse(rawFormData);
+  }
+  if (rawFormData.model === "R33") {
+    const finalSchema = r33Schema.extend(CarFormSchema.shape);
+    validatedFields = finalSchema.safeParse(rawFormData);
+  }
+  if (rawFormData.model === "R34") {
+    const finalSchema = r34Schema.extend(CarFormSchema.shape);
+    validatedFields = finalSchema.safeParse(rawFormData);
+  }
   const {
     model,
     year,
@@ -345,15 +358,15 @@ export async function updateCar(id: string, formData: FormData) {
     weight,
     src,
     description,
-  } = CarFormSchema.parse(rawFormData);
+  } = rawFormData;
 
-  try {
-    await sql`UPDATE cars
-  SET model=${model}, year=${year}, edition=${edition}, transmission=${transmission}, mileage=${mileage}, color=${color}, location=${location}, price=${price}, engine=${engine}, engineVariation=${engineVariation}, displacement=${displacement}, horsepower=${horsepower}, torque=${torque}, topSpeed=${topSpeed}, acceleration=${acceleration}, weight=${weight}, src=${src}, description=${description}
-  WHERE id=${id}`;
-  } catch (error) {
-    return { message: "Database error: Failed to update vehicle" };
-  }
+  // try {
+  //   await sql`UPDATE cars
+  // SET model=${model}, year=${year}, edition=${edition}, transmission=${transmission}, mileage=${mileage}, color=${color}, location=${location}, price=${price}, engine=${engine}, engineVariation=${engineVariation}, displacement=${displacement}, horsepower=${horsepower}, torque=${torque}, topSpeed=${topSpeed}, acceleration=${acceleration}, weight=${weight}, src=${src}, description=${description}
+  // WHERE id=${id}`;
+  // } catch (error) {
+  //   return { message: "Database error: Failed to update vehicle" };
+  // }
   revalidatePath(`/skylines/${id}`);
   redirect(`/skylines/${id}`);
 }

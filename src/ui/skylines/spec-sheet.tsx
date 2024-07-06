@@ -20,12 +20,12 @@ export default function SpecSheet({
   topSpeed: number | undefined;
 }) {
   return (
-    <div className="bg-nord-4 p-1 rounded-md text-sm text-nord0">
+    <div className="bg-nord-4 p-1 py-2 rounded-md text-sm text-nord0">
       <div className="grid grid-cols-2">
         <div>
           <div className="border-b-2 border-r-2">
             <div>
-              <p>{`transmission: ${transmission}`}</p>
+              <p>{`Transmission: ${transmission}`}</p>
             </div>
           </div>
           <div className="border-b-2 border-r-2">

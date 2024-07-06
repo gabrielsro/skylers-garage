@@ -26,6 +26,7 @@ export type SellerMinimal = {
   name: string;
   id: string;
   src: string;
+  rating: number;
 };
 
 export type CarUpload = {

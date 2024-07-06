@@ -25,6 +25,8 @@ const config: Config = {
       spacing: {
         "pic-sm": "50px",
         "pic-inter": "60px",
+        "pic-inter-sm": "50px",
+        "pic-minimal-sm": "37px",
         "pic-md": "120px",
         "pic-xs": "30px",
         "cars-container": "530px",

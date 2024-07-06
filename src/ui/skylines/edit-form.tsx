@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Car } from "@/lib/definitions";
 import { updateCar } from "@/lib/actions";
 
-export default function EditForm({ car }: { car: Car }) {
+export default function EditForm({ car }: { car: any }) {
   const updateCarWithId = updateCar.bind(null, car.id);
 
   return (

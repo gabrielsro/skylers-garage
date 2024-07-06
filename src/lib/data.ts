@@ -123,12 +123,12 @@ export async function fetchSeller(seller: {
   try {
     if (seller.id) {
       s =
-        await sql<SellerMinimal>`SELECT name, id, src FROM users WHERE id = ${seller.id}`;
+        await sql<SellerMinimal>`SELECT name, id, src, rating FRFOM users WHERE id = ${seller.id}`;
       return s.rows[0];
     }
     if (seller.name) {
       s =
-        await sql<SellerMinimal>`SELECT name, id, src FROM users WHERE name = ${seller.name}`;
+        await sql<SellerMinimal>`SELECT name, id, src, rating FROM users WHERE name = ${seller.name}`;
       return s.rows[0];
     }
   } catch (error) {
