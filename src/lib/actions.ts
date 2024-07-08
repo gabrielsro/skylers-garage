@@ -5,6 +5,14 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { CarUploadState } from "./definitions";
+import email from "next-auth/providers/email";
+const bcrypt = require("bcrypt");
+
+const UserFormSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+});
 
 const CarFormSchema = z.object({
   model: z.string(),
@@ -322,6 +330,19 @@ export async function createCar(prevState: State, formdata: FormData) {
 
   revalidatePath("/skylines/all");
   redirect("/skylines");
+}
+
+export async function createUser(formData: FormData) {
+  const rawFormData = Object.fromEntries(formData.entries());
+  const validatedFields = UserFormSchema.safeParse(rawFormData);
+  if (validatedFields.success) {
+    const { name, email, password } = validatedFields.data;
+    const hash = await bcrypt.hash(password, 10);
+    await sql`
+  INSERT INTO users (name, email, password)
+  VALUES (${name}, ${email}, ${hash} )
+  `;
+  }
 }
 
 export async function updateCar(id: string, formData: FormData) {
