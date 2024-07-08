@@ -3,7 +3,12 @@ import Image from "next/image";
 export default function ByModelListCard({
   user,
 }: {
-  user: { name: string; src: string | undefined; location: string; id: string };
+  user: {
+    name: string;
+    src?: string | undefined;
+    location?: string;
+    id: string;
+  };
 }) {
   return (
     <div className="flex items-center rounded-md gap-1">
