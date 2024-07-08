@@ -1,15 +1,7 @@
 import Image from "next/image";
+import { User } from "@/lib/definitions";
 
-export default function ByModelListCard({
-  user,
-}: {
-  user: {
-    name: string;
-    src?: string | undefined;
-    location?: string;
-    id: string;
-  };
-}) {
+export default function ByModelListCard({ user }: { user: User }) {
   return (
     <div className="flex items-center rounded-md gap-1">
       <div className="grid place-content-center min-w-pic-xs h-pic-xs rounded-full bg-black overflow-hidden">
