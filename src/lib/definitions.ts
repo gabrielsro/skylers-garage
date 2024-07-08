@@ -66,9 +66,11 @@ export type Recent = {
 
 export type User = {
   name: string;
-  location: string;
-  src: string;
+  location?: string;
+  src?: string;
   id: string;
+  email?: string;
+  password?: string;
   cars?: [];
   created_at?: [];
 };
