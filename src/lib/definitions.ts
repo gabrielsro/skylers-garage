@@ -67,7 +67,7 @@ export type Recent = {
 export type User = {
   name: string;
   location?: string;
-  src?: string;
+  src?: string | undefined;
   id: string;
   email?: string;
   password?: string;
