@@ -7,10 +7,10 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       if (isOnDashboard) {
-        console.log("UY");
         if (isLoggedIn) return true;
         return false;
       } else if (isLoggedIn) {
+        console.log(auth.user);
         return Response.redirect(new URL("/dashboard", nextUrl));
       }
       return true;

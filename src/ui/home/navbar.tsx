@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
+import NavbarLogout from "./navbar-logout";
 
 export default function Navbar() {
   const pathname = usePathname();

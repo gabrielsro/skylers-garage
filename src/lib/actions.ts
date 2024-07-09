@@ -7,6 +7,8 @@ import { redirect } from "next/navigation";
 import { CarUploadState } from "./definitions";
 import email from "next-auth/providers/email";
 const bcrypt = require("bcrypt");
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
 
 const UserFormSchema = z.object({
   name: z.string(),
@@ -166,6 +168,25 @@ const r34Schema = z.object({
     }
   ),
 });
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials";
+        default:
+          "Something went wrong";
+      }
+    }
+    throw error;
+  }
+}
 
 export async function modelYears(model: string) {
   if (model === "R32") {
